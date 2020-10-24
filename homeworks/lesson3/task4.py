@@ -8,66 +8,21 @@
 использование цикла.
 """
 
-numeric = (int, float, complex)
+from my_functions import my_pow
 
 
-def my_pow1(base: numeric, exp: numeric, mod: numeric = None) -> numeric:
-    """
-    Функция возведения в степень реализованная через **
-    Если присутствует mod, то вычисляется pow(base, exp) % mod
-    :param base: число возводимое в степень
-    :param exp: показатель степени
-    :param mod: остаток от деления на mod
-    :return: base ** exp или (base ** exp) % mod
-    """
-    if not isinstance(base, numeric) or not isinstance(exp, numeric):
-        raise TypeError(f"unsupported operand type(s) for ** or pow(): "
-                        f"'{base.__class__.__name__}' and '{exp.__class__.__name__}'")
+def my_func(x, y):
+    if x < 0:
+        raise ValueError('Неверный аргумент x')
 
-    if mod and not isinstance(mod, numeric):
-        raise TypeError(f"unsupported operand type(s) for pow(): "
-                        f"'{base.__class__.__name__}', '{exp.__class__.__name__}', "
-                        f"'{mod.__class__.__name__}'")
+    if int(y) != float(y) or y >= 0:
+        raise ValueError('Неверный аргумент y')
 
-    result = base ** exp
-
-    if mod is None:
-        return result
-    else:
-        return result % mod
-
-
-def my_pow2(base: numeric, exp: numeric, mod: numeric = None) -> numeric:
-    """
-    Функция возведения в степень, реализованная через while
-    Если присутствует mod, то вычисляется pow(base, exp) % mod
-    :param base: число возводимое в степень
-    :param exp: показатель степени
-    :param mod: остаток от деления на mod
-    :return: base ** exp или (base ** exp) % mod
-    """
-    if not isinstance(base, numeric) or not isinstance(exp, numeric):
-        raise TypeError(f"unsupported operand type(s) for ** or pow(): "
-                        f"'{base.__class__.__name__}' and '{exp.__class__.__name__}'")
-
-    if mod and not isinstance(mod, numeric):
-        raise TypeError(f"unsupported operand type(s) for pow(): "
-                        f"'{base.__class__.__name__}', '{exp.__class__.__name__}', "
-                        f"'{mod.__class__.__name__}'")
-
-    result = 1
-
-    while exp:
-        result *= base
-        exp -= 1
-
-    if mod is None:
-        return result
-    else:
-        return result % mod
+    return my_pow(x, y)
 
 
 if __name__ == '__main__':
-    print(my_pow1(3, 4))
-    print(my_pow2(3, 6, 4))
-
+    try:
+        print(my_func(2, -4))
+    except (ValueError, TypeError) as e:
+        print(e)
