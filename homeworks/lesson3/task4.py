@@ -12,6 +12,11 @@ from my_functions import my_pow
 
 
 def my_func(x, y):
+    """ валидирует корректность данных и если все ок - вызывает функцию my_pow
+    :param x: возводимое число в степень
+    :param y:  степень
+    :return: результат вычислений
+    """
     if x < 0:
         raise ValueError('Неверный аргумент x')
 
