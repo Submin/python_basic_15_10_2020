@@ -10,10 +10,6 @@ def my_div(x: number_types, y: number_types) -> number_types:
     :param y: Делитель
     :return: Частное
     """
-    if not (isinstance(x, number_types) and isinstance(y, number_types)):
-        raise TypeError(f"unsupported operand type(s) for my_div: "
-                        f"'{x.__class__.__name__}' and '{y.__class__.__name__}'")
-
     return x / y
 
 
@@ -27,20 +23,12 @@ def my_sum(iterable: Iterable, start: number_types = 0) -> [int, float]:
     :return: сумму start и всех элементов iterable
     """
     # базовые проверки
-    if not isinstance(iterable, Iterable):
-        raise TypeError(f"'{iterable.__class__.__name__}' object is not iterable")
-
     if not isinstance(start, number_types):
         raise TypeError(f"my_sum() can't sum strings [use ''.join(seq) instead]")
 
     result = start
 
     for item in iterable:
-        # падаем, если типы не совместимы
-        if not isinstance(item, number_types):
-            raise TypeError(f"unsupported operand type(s) for +:"
-                            f" 'int' and '{item.__class__.__name__}'")
-
         result += item
 
     return result
@@ -89,13 +77,12 @@ def my_abs(x: number_types) -> number_types:
     return -x if x < 0 else x
 
 
-def my_range(start: int, stop: int = None, step: int = 1) -> Iterable:
+def my_range(start: int, stop: int = None, step: int = 1) -> None:
     """ Возвращает объект-генератор. Функция полностью эмулирует встроенный range
     но можно переделать, чтобы генерировались и дробные значения
     :param start: начальное значение (по умолчанию = 0)
     :param stop: конечное значение
     :param step: шаг (по умолчанию = 1)
-    :return: генратор по параметрам
     """
     # базовые проверки
     if (
@@ -153,14 +140,20 @@ def my_all(iterable: Iterable) -> bool:
     :param iterable: проверяемый итерирруемый объект
     :return: True если все элементы iterable True, иначе False
     """
-    if not isinstance(iterable, Iterable):
-        raise TypeError(f"'{iterable.__class__.__name__}' object is not iterable")
-
     for item in iterable:
         if not item:
             return False
 
     return True
+
+
+def my_map(func: Callable, iterable: Iterable) -> None:
+    """ Применяет func к каждому элементу iterable
+    :param func: объект функции, которая будет применена к каждому элементу iterable
+    :param iterable: итерируемый объект
+    """
+    for item in iterable:
+        yield func(item)
 
 
 # print(my_sorted([1,4,3,2,5]))
@@ -206,3 +199,43 @@ if __name__ == '__main__':
     except ValueError as e:
         bt_ex = e
     print('test 4 my_pow', type(my_ex) == type(bt_ex))
+
+    try:
+        my_map()
+        print('test 1 my_map False')
+    except TypeError:
+        print('test 1 my_map True')
+
+    try:
+        list(my_map(2, 2))
+        print('test 2 my_map False')
+    except TypeError:
+        print('test 2 my_map True')
+
+    try:
+        list(my_map(3, [1]))
+        print('test 3 my_map False')
+    except TypeError:
+        print('test 3 my_map True')
+
+    print('test 4 my_map', list(my_map(lambda x: x + 1, [1, 2])) == list(map(lambda x: x + 1, [1, 2])))
+
+    try:
+        my_sum()
+        print('test 1 my_sum False')
+    except TypeError:
+        print('test 1 my_sum True')
+    try:
+        my_sum('a')
+        print('test 2 my_sum False')
+    except TypeError:
+        print('test 2 my_sum True')
+    try:
+        my_sum(1, 'a')
+        print('test 3 my_sum False')
+    except TypeError:
+        print('test 3 my_sum True')
+
+    print('test 4 my_sum ', my_sum([]) == sum([]))
+    print('test 5 my_sum ', my_sum([2,6]) == sum([2,6]))
+    print('test 6 my_sum ', my_sum([2,6], 4) == sum([2,6], 4))
