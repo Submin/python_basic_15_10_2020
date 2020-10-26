@@ -37,14 +37,7 @@ def get_repeated(iterable: Iterable, count: int):
 
 
 if __name__ == '__main__':
-    input_data = input('Пожалуйста введите целые числа разделяя их пробелами (максимум 4 числа): ')
-    repeate = input('Сколько раз повторить выше введенную последовательность?: ')
+    source_list = [1, 2, 3]
+    repeat = 4
 
-    try:
-        source_list = [int(i) for i in input_data.split()][:4]
-        repeate = int(repeate)
-    except ValueError:
-        print('Неверно введенные данные')
-        exit(1)
-
-    print(list(get_repeated(source_list, repeate)))
+    print(list(get_repeated(source_list, repeat)))
