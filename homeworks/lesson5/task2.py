@@ -3,7 +3,7 @@
 выполнить подсчет количества строк, количества слов в каждой строке.
 """
 
-filename = "source.txt"
+filename = "task2.txt"
 
 with open(filename, 'r', encoding='utf-8') as file:
     lines = [line for line in file.readlines() if line != '\n']
