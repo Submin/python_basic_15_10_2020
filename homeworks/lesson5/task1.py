@@ -5,7 +5,7 @@
 """
 
 
-FILENAME = "myfile.txt"
+FILENAME = "task1.txt"
 
 while True:
     user_input = input('Введите произвольную строку: ')
@@ -13,7 +13,7 @@ while True:
         break
 
     try:
-        with open(FILENAME, 'w', encoding='utf-8') as fh:
+        with open(FILENAME, 'a', encoding='utf-8') as fh:
             fh.write(f'{user_input}\n')
     except IOError as e:
         print(e)
