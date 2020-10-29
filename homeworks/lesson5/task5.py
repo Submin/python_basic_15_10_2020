@@ -8,20 +8,22 @@ FILENAME = "task5.txt"
 
 DIGITS_STR = "12 7.2 87 93.5 0 32 7.1"
 
-summ = 0
 
-try:
-    with open(FILENAME, 'w', encoding='utf-8') as fhs:
-        fhs.write(DIGITS_STR)
+if __name__ == "__main__":
+    summ = 0
 
-    with open(FILENAME, encoding='utf-8') as fhd:
-        data = fhd.read()
+    try:
+        with open(FILENAME, 'w', encoding='utf-8') as fhs:
+            fhs.write(DIGITS_STR)
 
-    for item in data.split():
-        summ += float(item)
-except IOError as e:
-    print(e)
-except ValueError:
-    print("Неконсистентные данные")
+        with open(FILENAME, encoding='utf-8') as fhd:
+            data = fhd.read()
 
-print(summ)
+        for item in data.split():
+            summ += float(item)
+    except IOError as e:
+        print(e)
+    except ValueError:
+        print("Неконсистентные данные")
+
+    print(summ)

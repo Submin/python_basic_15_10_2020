@@ -9,21 +9,23 @@
 
 FILENAME = "task6.txt"
 
-subjects = {}
 
-try:
-    with open(FILENAME, encoding='utf-8') as fh:
-        lines = fh.readlines()
+if __name__ == "__main__":
+    subjects = {}
 
-    for line in lines:
-        data = line.replace('(', ' ').split()
+    try:
+        with open(FILENAME, encoding='utf-8') as fh:
+            lines = fh.readlines()
 
-        subjects[data[0][:-1]] = sum(
-            int(i) for i in data if i.isdigit()
-        )
-except IOError as e:
-    print(e)
-except ValueError:
-    print("Неконсистентные данные")
+        for line in lines:
+            data = line.replace('(', ' ').split()
 
-print(subjects)
+            subjects[data[0][:-1]] = sum(
+                int(i) for i in data if i.isdigit()
+            )
+    except IOError as e:
+        print(e)
+    except ValueError:
+        print("Неконсистентные данные")
+
+    print(subjects)
