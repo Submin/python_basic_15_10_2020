@@ -2,13 +2,19 @@
 Создать текстовый файл (не программно), сохранить в нем несколько строк,
 выполнить подсчет количества строк, количества слов в каждой строке.
 """
+import sys
 
-filename = "task2.txt"
 
-with open(filename, 'r', encoding='utf-8') as file:
-    lines = [line for line in file.readlines() if line != '\n']
+FILENAME = "task2.txt"
 
-    print(f"В файле непустых строк:", len(lines))
+try:
+    with open(FILENAME, 'r') as fh:
+        lines = [line for line in fh.readlines() if line != '\n']
+except IOError as e:
+    print(e)
+    sys.exit(1)
 
-    for line, words_cnt in {l: len(l.split()) for l in lines}.items():
-        print(f'Строка {line[:50]}... содержит {words_cnt} слов')
+print(f"В файле непустых строк:", len(lines))
+
+for line in lines:
+    print(f'Строка {line[:50]}... содержит {len(line.split())} слов')
