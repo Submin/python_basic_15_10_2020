@@ -44,7 +44,7 @@ results = [{}, {}]
 
 
 try:
-    with open(SRC_FILENAME, 'r') as fhs:
+    with open(SRC_FILENAME, encoding='utf-8') as fhs:
         lines = fhs.readlines()
 
     for line in lines:
@@ -57,7 +57,7 @@ try:
         ) / len(results[0])
     )
 
-    with open(DST_FILENAME, "w") as fhd:
+    with open(DST_FILENAME, "w", encoding='utf-8') as fhd:
         fhd.write(dumps(results))
 except IOError as e:
     print(e)

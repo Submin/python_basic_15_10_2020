@@ -11,7 +11,7 @@ MINIMAL_SALARY = 20000
 FILENAME = "task3.txt"
 
 try:
-    with open(FILENAME, 'r') as fh:
+    with open(FILENAME, encoding='utf-8') as fh:
         employees = fh.readlines()
 except IOError as e:
     print(e)

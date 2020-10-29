@@ -8,7 +8,7 @@ import sys
 FILENAME = "task2.txt"
 
 try:
-    with open(FILENAME, 'r') as fh:
+    with open(FILENAME, encoding='utf-8') as fh:
         lines = [line for line in fh.readlines() if line != '\n']
 except IOError as e:
     print(e)
